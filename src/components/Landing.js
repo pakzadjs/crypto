@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaSun, FaMoon } from 'react-icons/fa';
+import { HiSun, HiMoon } from 'react-icons/hi';
 
 // API
 import { getCoin } from '../services/api';
@@ -38,7 +38,7 @@ const Landing = () => {
     return (
         <div className={darkMode ? 'landing dark' : 'landing'}>
             <div className={styles.top}>
-                <button onClick={darkModeHandler}>{darkMode ? <FaMoon /> : <FaSun />}</button>
+                <button onClick={darkModeHandler}>{darkMode ? <HiMoon /> : <HiSun />}</button>
                 <input
                     className={styles.input}
                     type="text"
