@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaSun, FaMoon } from 'react-icons/fa';
 
 // API
 import { getCoin } from '../services/api';
@@ -11,10 +12,10 @@ import Coin from './Coin';
 import styles from './Landing.module.css';
 
 const Landing = () => {
-
+    const [darkMode, setDarkMode] = useState(false);
     const [coins, setCoins] = useState([]);
     const [search, setSearch] = useState('');
-    
+
     useEffect(() => {
         const fetchAPI = async () => {
             const data = await getCoin();
@@ -30,15 +31,22 @@ const Landing = () => {
 
     const searchedCoins = coins.filter((coin) => coin.name.toLowerCase().includes(search.toLowerCase()));
 
+    const darkModeHandler = () => {
+        setDarkMode(!darkMode);
+    };
+
     return (
-        <>
-            <input
-                className={styles.input}
-                type="text"
-                placeholder="Search"
-                value={search}
-                onChange={searchHandler}
-            />
+        <div className={darkMode ? 'landing dark' : 'landing'}>
+            <div className={styles.top}>
+                <button onClick={darkModeHandler}>{darkMode ? <FaMoon /> : <FaSun />}</button>
+                <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="Search"
+                    value={search}
+                    onChange={searchHandler}
+                />
+            </div>
 
             {coins.length ? (
                 <div className={styles.coinContainer}>
@@ -54,8 +62,10 @@ const Landing = () => {
                         />
                     ))}
                 </div>
-            ) : (<Loader />)}
-        </>
+            ) : (
+                <Loader />
+            )}
+        </div>
     );
 };
 
